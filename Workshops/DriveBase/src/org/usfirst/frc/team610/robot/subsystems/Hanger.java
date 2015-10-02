@@ -18,6 +18,7 @@ public class Hanger extends Subsystem {
     
     DoubleSolenoid bunnyEars, hangerBar;
     
+    //CHECK PORTS
     private Hanger(){
     	bunnyEars = new DoubleSolenoid(0,1);
     	hangerBar = new DoubleSolenoid(2,3);

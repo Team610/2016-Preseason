@@ -15,6 +15,9 @@ public class T_Hang extends Command {
 	Joystick driver;
 	Hanger hanger;
 	
+	boolean bunnyEarsUp = false;
+	boolean hangerBarUp = false;
+	
     public T_Hang() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -29,17 +32,31 @@ public class T_Hang extends Command {
     protected void initialize() {
     }
 
+    
+    
+    
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
+    	//CHECK INPUT CONSTANTS
     	//L2, BunnyEars
-    	if(driver.getRawButton(7)){
-    		
+    	if(driver.getRawButton(7) && !bunnyEarsUp){
+    		bunnyEarsUp = true;
+    		hanger.setBunnyEarsUp();
+    	}
+    	else if(!driver.getRawButton(7) && bunnyEarsUp){
+    		bunnyEarsUp = false;
+    		hanger.setBunnyEarsDown();
     	}
     	
     	//L1, HangerBar
-    	if(driver.getRawButton(8)){
-    		
+    	if(driver.getRawButton(8) && !hangerBarUp){
+    		hangerBarUp = true;
+    		hanger.setHangerBarUp();
+    	}
+    	else if(!driver.getRawButton(8) && hangerBarUp){
+    		hangerBarUp = false;
+    		hanger.setHangerBarDown();
     	}
     }
 
