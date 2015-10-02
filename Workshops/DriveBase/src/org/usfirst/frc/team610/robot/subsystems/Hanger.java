@@ -1,5 +1,6 @@
 package org.usfirst.frc.team610.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -15,17 +16,35 @@ public class Hanger extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
+    DoubleSolenoid bunnyEars, hangerBar;
+    
     private Hanger(){
-    	
+    	bunnyEars = new DoubleSolenoid(0,1);
+    	hangerBar = new DoubleSolenoid(2,3);
     }
     
     private static Hanger instance;
     
-    private static Hanger getInstance(){
+    public static Hanger getInstance(){
     	if (instance == null){
     		instance = new Hanger();
     	}
     	return instance;
     }
+    
+    public void setBunnyEarsUp(){
+    	bunnyEars.set(DoubleSolenoid.Value.kForward);
+    }
+    public void setBunnyEarsDown(){
+    	bunnyEars.set(DoubleSolenoid.Value.kReverse);
+    }
+    
+    public void setHangerBarUp(){
+    	hangerBar.set(DoubleSolenoid.Value.kForward);
+    }
+    public void setHangerBarDown(){
+    	hangerBar.set(DoubleSolenoid.Value.kReverse);
+    }
+    
 }
 

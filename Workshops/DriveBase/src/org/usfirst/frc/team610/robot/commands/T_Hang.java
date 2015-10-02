@@ -13,14 +13,15 @@ import edu.wpi.first.wpilibj.command.Command;
 public class T_Hang extends Command {
 
 	Joystick driver;
-	Hanger hang;
+	Hanger hanger;
 	
     public T_Hang() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
     	driver = OI.getInstance().getDriver();
-    	//hang =
+    	hanger = Hanger.getInstance();
+    	
     	
     }
 
@@ -30,6 +31,16 @@ public class T_Hang extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	//L2, BunnyEars
+    	if(driver.getRawButton(7)){
+    		
+    	}
+    	
+    	//L1, HangerBar
+    	if(driver.getRawButton(8)){
+    		
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
