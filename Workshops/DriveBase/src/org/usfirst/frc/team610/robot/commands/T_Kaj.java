@@ -1,6 +1,7 @@
 package org.usfirst.frc.team610.robot.commands;
 
 import org.usfirst.frc.team610.robot.OI;
+import org.usfirst.frc.team610.robot.constants.InputConstants;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
@@ -33,10 +34,10 @@ public class T_Kaj extends Command {
     	 * TODO: CHECK AXIS
     	 * TODO: CUBE? 
     	 */
-    	x = driver.getRawAxis(0);
-    	y = driver.getRawAxis(2);
-    	leftSpeed = x-y;
-    	rightSpeed = x+y;
+    	x = driver.getRawAxis(InputConstants.AXIS_RIGHT_X);
+    	y = driver.getRawAxis(InputConstants.AXIS_LEFT_Y);
+    	leftSpeed = y-x;
+    	rightSpeed = y+x;
     	
     }
 
