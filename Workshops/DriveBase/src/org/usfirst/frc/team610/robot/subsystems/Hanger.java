@@ -24,7 +24,7 @@ public class Hanger extends Subsystem {
     	hangerBar = new DoubleSolenoid(2,3);
     }
     
-    private static Hanger instance;
+    static Hanger instance;
     
     public static Hanger getInstance(){
     	if (instance == null){
