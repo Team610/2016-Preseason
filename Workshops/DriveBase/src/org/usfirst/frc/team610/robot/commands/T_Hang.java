@@ -1,5 +1,7 @@
 package org.usfirst.frc.team610.robot.commands;
 
+import org.usfirst.frc.team610.robot.OI;
+import org.usfirst.frc.team610.robot.subsystems.Hanger;
 import org.usfirst.frc.team610.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,6 +19,8 @@ public class T_Hang extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
+    	driver = OI.getInstance().getDriver();
+    	//hang =
     	
     }
 

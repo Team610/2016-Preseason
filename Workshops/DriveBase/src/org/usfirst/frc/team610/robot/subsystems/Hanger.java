@@ -14,5 +14,18 @@ public class Hanger extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    
+    private Hanger(){
+    	
+    }
+    
+    private static Hanger instance;
+    
+    private static Hanger getInstance(){
+    	if (instance == null){
+    		instance = new Hanger();
+    	}
+    	return instance;
+    }
 }
 

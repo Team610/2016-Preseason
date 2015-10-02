@@ -14,7 +14,7 @@ public class DriveTrain extends Subsystem {
 	private static DriveTrain instance;
 	Victor leftFront, leftMid, leftBack, rightFront, rightMid, rightBack;
 	
-	DriveTrain(){
+	private DriveTrain(){
 		//CHECK PORTS
 		leftFront = new Victor(0);
 		leftMid = new Victor(1);
