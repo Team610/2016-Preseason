@@ -34,6 +34,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void setLeftSpeed(double v){
+		leftFront.set(v);
 		
 	}
 
