@@ -1,6 +1,5 @@
 package org.usfirst.frc.team610.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -35,7 +34,14 @@ public class DriveTrain extends Subsystem {
 	
 	public void setLeftSpeed(double v){
 		leftFront.set(v);
-		
+		leftMid.set(v);
+		leftBack.set(v);
+	}
+	
+	public void setRightSpeed(double v){
+		rightFront.set(v);
+		rightMid.set(v);
+		rightBack.set(v);
 	}
 
     public void initDefaultCommand() {
