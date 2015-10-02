@@ -1,5 +1,8 @@
 package org.usfirst.frc.team610.robot.commands;
 
+import org.usfirst.frc.team610.robot.subsystems.Shooter;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -7,9 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class T_Hang extends Command {
 
+	Joystick driver;
+	Hanger hang;
+	
     public T_Hang() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	
+    	
     }
 
     // Called just before this Command runs the first time
