@@ -1,6 +1,7 @@
 package org.usfirst.frc.team610.robot.commands;
 
 import org.usfirst.frc.team610.robot.OI;
+import org.usfirst.frc.team610.robot.constants.InputConstants;
 import org.usfirst.frc.team610.robot.subsystems.Hanger;
 import org.usfirst.frc.team610.robot.subsystems.Shooter;
 
@@ -40,21 +41,21 @@ public class T_Hang extends Command {
     	
     	//CHECK INPUT CONSTANTS
     	//L2, BunnyEars
-    	if(driver.getRawButton(7) && !bunnyEarsUp){
+    	if(driver.getRawButton(InputConstants.BTN_L2) && !bunnyEarsUp){
     		bunnyEarsUp = true;
     		hanger.setBunnyEarsUp();
     	}
-    	else if(!driver.getRawButton(7) && bunnyEarsUp){
+    	else if(!driver.getRawButton(InputConstants.BTN_L2) && bunnyEarsUp){
     		bunnyEarsUp = false;
     		hanger.setBunnyEarsDown();
     	}
     	
     	//L1, HangerBar
-    	if(driver.getRawButton(8) && !hangerBarUp){
+    	if(driver.getRawButton(InputConstants.BTN_L1) && !hangerBarUp){
     		hangerBarUp = true;
     		hanger.setHangerBarUp();
     	}
-    	else if(!driver.getRawButton(8) && hangerBarUp){
+    	else if(!driver.getRawButton(InputConstants.BTN_L1) && hangerBarUp){
     		hangerBarUp = false;
     		hanger.setHangerBarDown();
     	}
