@@ -1,8 +1,10 @@
 
 package org.usfirst.frc.team610.robot;
 
+import org.usfirst.frc.team610.robot.commands.T_Teleop;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -17,7 +19,8 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 
-    Command autonomousCommand;
+    
+    CommandGroup teleop;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -25,6 +28,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = OI.getInstance();
+		teleop = new T_Teleop();
         // instantiate the command used for the autonomous period
     }
 	
@@ -34,7 +38,6 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
     }
 
     /**
@@ -49,7 +52,10 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+    	Scheduler.getInstance().removeAll();
+    	teleop.start();
+    
+    
     }
 
     /**
