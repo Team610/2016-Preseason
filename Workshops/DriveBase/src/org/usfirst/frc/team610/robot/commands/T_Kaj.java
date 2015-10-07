@@ -2,6 +2,7 @@ package org.usfirst.frc.team610.robot.commands;
 
 import org.usfirst.frc.team610.robot.OI;
 import org.usfirst.frc.team610.robot.constants.InputConstants;
+import org.usfirst.frc.team610.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
@@ -13,11 +14,13 @@ public class T_Kaj extends Command {
 
 	Joystick driver;
 	OI oi;
+	DriveTrain drivetrain;
 	double x,y,leftSpeed,rightSpeed;
 
     public T_Kaj() {
     	driver = oi.getDriver();
     	oi = OI.getInstance();
+    	drivetrain = DriveTrain.getInstance();
     	
     	
         // Use requires() here to declare subsystem dependencies
@@ -38,6 +41,9 @@ public class T_Kaj extends Command {
     	y = driver.getRawAxis(InputConstants.AXIS_LEFT_Y);
     	leftSpeed = y+x;
     	rightSpeed = y-x;
+    	
+    	drivetrain.setLeftSpeed(leftSpeed);
+    	drivetrain.setRightSpeed(rightSpeed);
     	
     }
 
