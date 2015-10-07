@@ -1,5 +1,6 @@
 package org.usfirst.frc.team610.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
@@ -16,11 +17,12 @@ public class Shooter extends Subsystem {
 	 DigitalInput optical; 
 	 boolean opt = false;
 	static Shooter inst;
-	
+	private static Counter opticall;
+	double speed = 0.0;
 	DoubleSolenoid feeder;
 	DoubleSolenoid tray;
 
-	 static Shooter getInstance(){
+	public static Shooter getInstance(){
 		if(inst == null){
 			inst = new Shooter();
 		}
@@ -43,6 +45,9 @@ public class Shooter extends Subsystem {
 		  feeder.set(DoubleSolenoid.Value.kReverse);
 	  }
 	 
+	  public void setSpeed(double rpm){
+		  
+	  }
 	  
 	  
 	  //WHICH ONE IS WHICH, CHECK PISTONS

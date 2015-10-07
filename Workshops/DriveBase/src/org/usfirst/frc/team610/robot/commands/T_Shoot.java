@@ -1,13 +1,19 @@
 package org.usfirst.frc.team610.robot.commands;
 
+import org.usfirst.frc.team610.robot.subsystems.Shooter;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class T_Shoot extends Command {
+	Shooter shooter;
 
     public T_Shoot() {
+    	shooter = Shooter.getInstance();
+    	
+    	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
