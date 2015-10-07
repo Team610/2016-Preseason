@@ -52,11 +52,11 @@ public class Shooter extends Subsystem {
 	  
 	  //WHICH ONE IS WHICH, CHECK PISTONS
 	  public void trayOpen(){
-		  
+		  tray.set(DoubleSolenoid.Value.kForward);
 	  }
 	  
 	  public void trayClose(){
-		  
+		  tray.set(DoubleSolenoid.Value.kReverse);
 	  }
 
 	  public boolean optical(){
