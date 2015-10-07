@@ -2,6 +2,7 @@ package org.usfirst.frc.team610.robot.commands;
 
 import org.usfirst.frc.team610.robot.subsystems.Shooter;
 
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -9,11 +10,15 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class T_Shoot extends Command {
 	Shooter shooter;
+	Counter optical;
+	 private static double ff = 0.0022;
+	    private static double setpoint = 0;
+	    private static double current; 
 
     public T_Shoot() {
     	shooter = Shooter.getInstance();
-    	
-    	
+    	optical = new Counter(); 
+    		
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
