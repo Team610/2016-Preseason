@@ -36,8 +36,8 @@ public class T_Kaj extends Command {
     	 */
     	x = driver.getRawAxis(InputConstants.AXIS_RIGHT_X);
     	y = driver.getRawAxis(InputConstants.AXIS_LEFT_Y);
-    	leftSpeed = y-x;
-    	rightSpeed = y+x;
+    	leftSpeed = y+x;
+    	rightSpeed = y-x;
     	
     }
 
