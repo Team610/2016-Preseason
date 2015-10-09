@@ -41,10 +41,10 @@ public class Hanger extends Subsystem {
     }
     
     public void setHangerBarUp(){
-    	hangerBar.set(DoubleSolenoid.Value.kForward);
+    	hangerBar.set(DoubleSolenoid.Value.kReverse);
     }
     public void setHangerBarDown(){
-    	hangerBar.set(DoubleSolenoid.Value.kReverse);
+    	hangerBar.set(DoubleSolenoid.Value.kForward);
     }
     
 }

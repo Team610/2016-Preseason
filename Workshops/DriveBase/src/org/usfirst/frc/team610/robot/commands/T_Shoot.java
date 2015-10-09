@@ -20,6 +20,8 @@ public class T_Shoot extends Command {
 	    private int settleDownCount = 0;
 	    private int retractDelay = 10;
 	    private static double delay = 10;
+	    private int frisbees = 0;
+	     
 
     public T_Shoot() {
     	shooter = Shooter.getInstance();
