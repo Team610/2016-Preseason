@@ -9,23 +9,23 @@ public class ElectricalConstants {
 	 * 
 	 * 
 	 */
-	public static final int rightBack = 0;//Correct & Calibrated
-	public static final int rightMid = 1; //Correct and Calibrated
-	public static final int rightFront = 2; //Correct and Calibrated
-	public static final int leftBack = 3;//Correct and Calibrated
-	public static final int leftMid = 4; //Correct & Calibrated
-	public static final int leftFront = 5; //Correct & Calibrated
-	public static final int shooterOne = 6;
-	public static final int shooterTwo = 7;
+	public static final int RIGHT_BACK = 0;//Correct & Calibrated
+	public static final int RIGHT_MID = 1; //Correct and Calibrated
+	public static final int RIGHT_FRONT = 2; //Correct and Calibrated
+	public static final int LEFT_BACK = 3;//Correct and Calibrated
+	public static final int LEFT_MID = 4; //Correct & Calibrated
+	public static final int LEFT_FRONT = 5; //Correct & Calibrated
+	public static final int SHOOTER_ONE = 6; //Correct & Calibrated
+	public static final int SHOOTER_TWO = 7; //Correct & Calibrated
 	
-	public static final int liftSola = 2;
-	public static final int liftSolb = 7;
-	public static final int bunnyEars = 1;
-	public static final int shooterAngleA = 3;
-	public static final int shooterAngleB = 6;
-	public static final int traySolenoid = 0;
-	public static final int feedA = 4;
-	public static final int feedB = 5;
+	public static final int LIFT_SOL_A = 2;
+	public static final int LIFT_SOL_B = 7;
+	public static final int BUNNYEARS = 1;
+	public static final int SHOOTER_ANGLE_A = 3;
+	public static final int SHOOTER_ANGLE_B = 6;
+	public static final int TRAY_SOLENOID = 0;
+	public static final int FEED_A = 4;
+	public static final int FEED_B = 5;
 	
 	
 	

@@ -39,10 +39,10 @@ public class Shooter extends Subsystem {
 	 
 	 
 	  private Shooter(){
-		  shooter1 = new Victor(ElectricalConstants.shooterOne);
-		  shooter2 = new Victor(ElectricalConstants.shooterTwo);
-		  feeder = new DoubleSolenoid(ElectricalConstants.feedA,ElectricalConstants.feedB);
-		  tray = new Solenoid(ElectricalConstants.traySolenoid);
+		  shooter1 = new Victor(ElectricalConstants.SHOOTER_ONE);
+		  shooter2 = new Victor(ElectricalConstants.SHOOTER_TWO);
+		  feeder = new DoubleSolenoid(ElectricalConstants.FEED_A,ElectricalConstants.FEED_B);
+		  tray = new Solenoid(ElectricalConstants.TRAY_SOLENOID);
 		  opticall = new Counter(1);
 		  opticall.setMaxPeriod(5);
 		  opticall.setSemiPeriodMode(true);

@@ -20,12 +20,12 @@ public class DriveTrain extends Subsystem {
 	
 	private DriveTrain(){
 		//CHECK PORTS
-		leftFront = new Victor(ElectricalConstants.leftFront);
-		leftMid = new Victor(ElectricalConstants.leftMid);
-		leftBack = new Victor(ElectricalConstants.leftBack);
-		rightFront = new Victor(ElectricalConstants.rightFront);
-		rightMid = new Victor(ElectricalConstants.rightMid);
-		rightBack = new Victor(ElectricalConstants.rightBack);
+		leftFront = new Victor(ElectricalConstants.LEFT_FRONT);
+		leftMid = new Victor(ElectricalConstants.LEFT_MID);
+		leftBack = new Victor(ElectricalConstants.LEFT_BACK);
+		rightFront = new Victor(ElectricalConstants.RIGHT_FRONT);
+		rightMid = new Victor(ElectricalConstants.RIGHT_MID);
+		rightBack = new Victor(ElectricalConstants.RIGHT_BACK);
 		//comp = new Compressor();
 		//comp.start();
 	
@@ -38,16 +38,16 @@ public class DriveTrain extends Subsystem {
 		return instance;
 	}
 	
-	public void setLeftSpeed(double v){
-	leftFront.set(v);
-		leftMid.set(v);
-		leftBack.set(v);
+	public void setLeftSpeed(double speed){
+	leftFront.set(speed);
+		leftMid.set(speed);
+		leftBack.set(speed);
 	}
 	
-	public void setRightSpeed(double v){
-		rightFront.set(-v);
-		rightMid.set(-v);
-		rightBack.set(-v);
+	public void setRightSpeed(double speed){
+		rightFront.set(-speed);
+		rightMid.set(-speed);
+		rightBack.set(-speed);
 	}
 
     public void initDefaultCommand() {

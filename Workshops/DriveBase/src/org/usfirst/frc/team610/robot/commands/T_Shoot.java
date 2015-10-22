@@ -45,8 +45,6 @@ public class T_Shoot extends Command {
     	
     	if(driver.getRawButton(InputConstants.BTN_A))
     		shooter.setMotors(1);
-    	else if(driver.getRawButton(InputConstants.BTN_B))
-    		shooter.setMotors(-1);
     	else
     		shooter.setMotors(0);
     	
