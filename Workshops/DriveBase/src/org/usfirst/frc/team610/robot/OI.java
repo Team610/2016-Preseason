@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
     
 	
-	 static OI instance = null;
-	 Joystick driver, operator;
+	private static OI instance;
+	 private Joystick driver, operator;
 	
 	public static OI getInstance(){
 		if(instance == null){

@@ -1,9 +1,12 @@
 package org.usfirst.frc.team610.robot.subsystems;
 
+import org.usfirst.frc.team610.robot.constants.ElectricalConstants;
+
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -21,7 +24,7 @@ public class Shooter extends Subsystem {
 	private static Counter opticall;
 	double speed = 0.0;
 	DoubleSolenoid feeder;
-	DoubleSolenoid tray;
+	Solenoid tray;
 	
 	
 	
@@ -36,10 +39,10 @@ public class Shooter extends Subsystem {
 	 
 	 
 	  private Shooter(){
-		  shooter1 = new Victor(1);
-		  shooter2 = new Victor(2);
-		  feeder = new DoubleSolenoid(0,1);
-		  tray = new DoubleSolenoid(2,3);
+		  shooter1 = new Victor(ElectricalConstants.shooterOne);
+		  shooter2 = new Victor(ElectricalConstants.shooterTwo);
+		  feeder = new DoubleSolenoid(ElectricalConstants.feedA,ElectricalConstants.feedB);
+		  tray = new Solenoid(ElectricalConstants.traySolenoid);
 		  opticall = new Counter(1);
 		  opticall.setMaxPeriod(5);
 		  opticall.setSemiPeriodMode(true);
@@ -77,11 +80,11 @@ public class Shooter extends Subsystem {
 	  
 	  //WHICH ONE IS WHICH, CHECK PISTONS
 	  public void trayOpen(){
-		  tray.set(DoubleSolenoid.Value.kForward);
+		  tray.set(false);
 	  }
 	  
 	  public void trayClose(){
-		  tray.set(DoubleSolenoid.Value.kReverse);
+		  tray.set(true);
 	  }
 
 	  public boolean optical(){

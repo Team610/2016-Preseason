@@ -1,9 +1,11 @@
 package org.usfirst.frc.team610.robot.commands;
 
 import org.usfirst.frc.team610.robot.OI;
+import org.usfirst.frc.team610.robot.constants.InputConstants;
 import org.usfirst.frc.team610.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -13,32 +15,41 @@ public class T_Shoot extends Command {
 	Shooter shooter;
 	Counter optical;
 	OI oi;
-	 private static double ff = 0.0022;
-	    private static double setpoint = 0;
-	    private static double current; 
-	    private int extendCount = 0;
-	    private int settleDownCount = 0;
-	    private int retractDelay = 10;
-	    private static double delay = 10;
-	    private int frisbees = 0;
-	     
+	Joystick driver;
+	Joystick operator;
+	private static double ff = 0.0022;
+	private static double setpoint = 0;
+	private static double current;
+	private int extendCount = 0;
+	private int settleDownCount = 0;
+	private int retractDelay = 10;
+	private static double delay = 10;
+	private int frisbees = 0;
 
-    public T_Shoot() {
-    	shooter = Shooter.getInstance();
-    	optical = new Counter(); 
-    	oi = OI.getInstance();
+	public T_Shoot() {
+		oi = OI.getInstance();
+		shooter = Shooter.getInstance();
+		optical = new Counter();
+		driver = oi.getDriver();
+
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+	}
+
+	// Called just before this Command runs the first time
+	protected void initialize() {
+	}
+
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
     	
-    		
-    	// Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    }
-
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
+    	if(driver.getRawButton(InputConstants.BTN_A))
+    		shooter.setMotors(1);
+    	else if(driver.getRawButton(InputConstants.BTN_B))
+    		shooter.setMotors(-1);
+    	else
+    		shooter.setMotors(0);
+    	
 //    	if (optical != null) {
 //            current = (60 / (optical.getPeriod() * (8.0 / 7.0)));
 //        } else {
@@ -125,17 +136,17 @@ public class T_Shoot extends Command {
     	
     }
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+	}
 }

@@ -18,8 +18,9 @@ public class T_Kaj extends Command {
 	double x,y,leftSpeed,rightSpeed;
 
     public T_Kaj() {
-    	driver = oi.getDriver();
     	oi = OI.getInstance();
+
+    	driver = oi.getDriver();
     	drivetrain = DriveTrain.getInstance();
     	
     	
@@ -39,10 +40,10 @@ public class T_Kaj extends Command {
     	 */
     	x = driver.getRawAxis(InputConstants.AXIS_RIGHT_X);
     	y = driver.getRawAxis(InputConstants.AXIS_LEFT_Y);
-    	leftSpeed = y+x;
-    	rightSpeed = y-x;
+    	leftSpeed = y-x;
+    	rightSpeed = y+x;
     	
-    	drivetrain.setLeftSpeed(leftSpeed);
+    drivetrain.setLeftSpeed(leftSpeed);
     	drivetrain.setRightSpeed(rightSpeed);
     	
     }

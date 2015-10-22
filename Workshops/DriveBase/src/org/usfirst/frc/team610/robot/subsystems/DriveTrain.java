@@ -1,5 +1,8 @@
 package org.usfirst.frc.team610.robot.subsystems;
 
+import org.usfirst.frc.team610.robot.constants.ElectricalConstants;
+
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -13,15 +16,18 @@ public class DriveTrain extends Subsystem {
 	
 	private static DriveTrain instance;
 	Victor leftFront, leftMid, leftBack, rightFront, rightMid, rightBack;
+	Compressor comp;
 	
 	private DriveTrain(){
 		//CHECK PORTS
-		leftFront = new Victor(0);
-		leftMid = new Victor(1);
-		leftBack = new Victor(2);
-		rightFront = new Victor(3);
-		rightMid = new Victor(4);
-		rightBack = new Victor(5);
+		leftFront = new Victor(ElectricalConstants.leftFront);
+		leftMid = new Victor(ElectricalConstants.leftMid);
+		leftBack = new Victor(ElectricalConstants.leftBack);
+		rightFront = new Victor(ElectricalConstants.rightFront);
+		rightMid = new Victor(ElectricalConstants.rightMid);
+		rightBack = new Victor(ElectricalConstants.rightBack);
+		//comp = new Compressor();
+		//comp.start();
 	
 	}
 	
@@ -33,15 +39,15 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void setLeftSpeed(double v){
-		leftFront.set(v);
+	leftFront.set(v);
 		leftMid.set(v);
 		leftBack.set(v);
 	}
 	
 	public void setRightSpeed(double v){
-		rightFront.set(v);
-		rightMid.set(v);
-		rightBack.set(v);
+		rightFront.set(-v);
+		rightMid.set(-v);
+		rightBack.set(-v);
 	}
 
     public void initDefaultCommand() {

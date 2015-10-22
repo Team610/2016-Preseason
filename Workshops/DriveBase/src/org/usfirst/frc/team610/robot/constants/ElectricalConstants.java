@@ -9,12 +9,12 @@ public class ElectricalConstants {
 	 * 
 	 * 
 	 */
-	public static final int rightBack = 0;
-	public static final int rightMid = 1;
-	public static final int rightFront = 2;
-	public static final int leftBack = 3;
-	public static final int leftMid = 4;
-	public static final int leftFront = 5; 
+	public static final int rightBack = 0;//Correct & Calibrated
+	public static final int rightMid = 1; //Correct and Calibrated
+	public static final int rightFront = 2; //Correct and Calibrated
+	public static final int leftBack = 3;//Correct and Calibrated
+	public static final int leftMid = 4; //Correct & Calibrated
+	public static final int leftFront = 5; //Correct & Calibrated
 	public static final int shooterOne = 6;
 	public static final int shooterTwo = 7;
 	
