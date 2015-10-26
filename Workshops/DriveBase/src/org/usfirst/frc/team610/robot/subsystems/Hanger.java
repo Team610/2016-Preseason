@@ -1,6 +1,9 @@
 package org.usfirst.frc.team610.robot.subsystems;
 
+import org.usfirst.frc.team610.robot.constants.ElectricalConstants;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -16,12 +19,13 @@ public class Hanger extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    DoubleSolenoid bunnyEars, hangerBar;
+    DoubleSolenoid hangerBar;
+    Solenoid bunnyEars;
     
     //CHECK PORTS
     private Hanger(){
-    	bunnyEars = new DoubleSolenoid(0,1);
-    	hangerBar = new DoubleSolenoid(2,3);
+    	bunnyEars = new Solenoid(ElectricalConstants.BUNNYEARS);
+    	hangerBar = new DoubleSolenoid(ElectricalConstants.HANGER_SOL_A,ElectricalConstants.HANGER_SOL_B);
     }
     
     static Hanger instance;
@@ -34,10 +38,10 @@ public class Hanger extends Subsystem {
     }
     
     public void setBunnyEarsUp(){
-    	bunnyEars.set(DoubleSolenoid.Value.kForward);
+    	bunnyEars.set(true);
     }
     public void setBunnyEarsDown(){
-    	bunnyEars.set(DoubleSolenoid.Value.kReverse);
+    	bunnyEars.set(false);
     }
     
     public void setHangerBarUp(){

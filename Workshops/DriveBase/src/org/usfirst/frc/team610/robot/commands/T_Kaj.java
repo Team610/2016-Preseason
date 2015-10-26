@@ -43,7 +43,7 @@ public class T_Kaj extends Command {
     	leftSpeed = y-x;
     	rightSpeed = y+x;
     	
-    drivetrain.setLeftSpeed(leftSpeed);
+    	drivetrain.setLeftSpeed(leftSpeed);
     	drivetrain.setRightSpeed(rightSpeed);
     	
     }

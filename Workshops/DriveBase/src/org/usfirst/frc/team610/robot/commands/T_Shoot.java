@@ -38,16 +38,32 @@ public class T_Shoot extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+	
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
     	
-    	if(driver.getRawButton(InputConstants.BTN_A))
-    		shooter.setMotors(1);
-    	else
+    	if(driver.getRawButton(InputConstants.BTN_A)){
+    		if(shooter.getSpeed() < 3000){
+    			shooter.setMotors(1);
+    		} else {
+    			shooter.setMotors(0.45);
+    		}
+    	} else {
     		shooter.setMotors(0);
-    	
+    	}
+		if(driver.getRawButton(InputConstants.BTN_X)){
+			shooter.feederOut();
+		} else {
+			shooter.feederIn();
+		}
+		System.out.println(shooter.getSpeed());
+		
+		
+		
+		
+//    	System.out.println(shooter.getOptical());
 //    	if (optical != null) {
 //            current = (60 / (optical.getPeriod() * (8.0 / 7.0)));
 //        } else {

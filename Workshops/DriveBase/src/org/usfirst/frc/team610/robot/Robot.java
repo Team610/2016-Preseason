@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team610.robot;
 
+import org.usfirst.frc.team610.robot.commands.T_Hang;
 import org.usfirst.frc.team610.robot.commands.T_Kaj;
 import org.usfirst.frc.team610.robot.commands.T_Shoot;
 
@@ -21,7 +22,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
     
-    Command kaj,shoot;
+    Command kaj, shoot, hang;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -31,6 +32,7 @@ public class Robot extends IterativeRobot {
 		oi = OI.getInstance();
 		kaj = new T_Kaj();
 		shoot = new T_Shoot();
+		hang = new T_Hang();
         // instantiate the command used for the autonomous period
     }
 	
@@ -57,6 +59,7 @@ public class Robot extends IterativeRobot {
     	Scheduler.getInstance().removeAll();
     	kaj.start();
     	shoot.start();
+    	hang.start();
     
     
     }
