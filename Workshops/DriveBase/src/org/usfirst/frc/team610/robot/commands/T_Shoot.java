@@ -43,22 +43,33 @@ public class T_Shoot extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		
+		
+		double speed = (5500 + 296) / 7868.4;
     	
+//    	if(driver.getRawButton(InputConstants.BTN_A)){
+//    		shooter.setMotors(.25);
+//    	} else if (driver.getRawButton(InputConstants.BTN_B)){
+//    		shooter.setMotors(0.5);
+//    	} else if (driver.getRawButton(InputConstants.BTN_X)){
+//    		shooter.setMotors(0.75);
+//    	} else if (driver.getRawButton(InputConstants.BTN_Y)){
+//    		shooter.setMotors(1);
+//    	} 
     	if(driver.getRawButton(InputConstants.BTN_A)){
-    		if(shooter.getSpeed() < 3000){
-    			shooter.setMotors(1);
-    		} else {
-    			shooter.setMotors(0.45);
-    		}
+    		shooter.setMotors(speed);
     	} else {
     		shooter.setMotors(0);
     	}
-		if(driver.getRawButton(InputConstants.BTN_X)){
-			shooter.feederOut();
-		} else {
-			shooter.feederIn();
-		}
-		System.out.println(shooter.getSpeed());
+    	
+    	System.out.println(shooter.getSpeed());
+    	
+    	
+//		if(driver.getRawButton(InputConstants.BTN_X)){
+//			shooter.feederOut();
+//		} else {
+//			shooter.feederIn();
+//		}
 		
 		
 		
