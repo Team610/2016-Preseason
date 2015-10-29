@@ -54,14 +54,21 @@ public class T_Shoot extends Command {
 	double diffError;
 	double p = 0.0001;
 //	double d = 0.00001;
+	
+	double lastPower = 0;
+	double power;
+	double diffPower;
 
+	boolean allowShoot = false;
+	int shotIntervalCounter = 0;
+	
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		
+		//Feed forward PID for the shooter
 		currentSpeed = shooter.getSpeed();
-		
+
 		error = wantedSpeed - currentSpeed;
-		
 		
 		diffError = lastError - error;
 		lastError = error;
@@ -71,17 +78,28 @@ public class T_Shoot extends Command {
 			currentSpeed = wantedSpeed;
 		}
 		
-		double power = (wantedSpeed + 296) / 7868.4 + (error * p)  ;
-    	
-		if(power < -5 || power > 5){
-			power = 0;
+		power = (wantedSpeed + 296) / 7868.4 + (error * p)  ;
+//		 - (diffError * d)
+		
+		
+		//Prevent randomly high values from affecting pid
+		
+		diffPower = Math.abs(power - lastPower);
+		
+		if(diffPower > 100){
+			power = lastPower;
 		}
 		
+		lastPower = power;
 		
+		
+//		if(power < -5 || power > 5){
+//			power = 0;
+//		}
+//		
 		
 		System.out.println(power);
-//		(wantedSpeed + 296) / 7868.4 + 
-//		 - (diffError * d)
+
 //    	if(driver.getRawButton(InputConstants.BTN_A)){
 //    		shooter.setMotors(.25);
 //    	} else if (driver.getRawButton(InputConstants.BTN_B)){
@@ -93,7 +111,7 @@ public class T_Shoot extends Command {
 //    	} 
 		
 		
-		
+		//Toggle for spinning shooter
 		if(driver.getRawButton(InputConstants.BTN_A) && !isPressed){
 			isPressed = true;
 			shoot = !shoot;
@@ -101,23 +119,30 @@ public class T_Shoot extends Command {
 			isPressed = false;
 		}
 		
-		
     	if(shoot){
     		shooter.setMotors(power);
     	} else {
     		shooter.setMotors(0);
     	}
     	
-//    	System.out.println(shooter.getSpeed());
+    	//Puts speed on smart dashboard
     	SmartDashboard.putNumber("Speed", shooter.getSpeed());
     	
     	
-		if(driver.getRawButton(InputConstants.BTN_X)){
-			if(!(shooter.getSpeed() < wantedSpeed)){
-				shooter.feederOut();
-			} else {
-				shooter.feederIn();
-			}
+    	//Hold down x to shoot
+    	if(shooter.getSpeed() < wantedSpeed - 50  && shotIntervalCounter >= retractDelay){
+    		allowShoot = true;
+    	} else {
+    		allowShoot = false;
+    		if(shotIntervalCounter <= retractDelay){
+    			shotIntervalCounter ++;
+    		}
+    	}
+    	
+		if(driver.getRawButton(InputConstants.BTN_X) && allowShoot){
+			shooter.feederOut();
+			shotIntervalCounter = 0;
+			
 		} else {
 			shooter.feederIn();
 		}
