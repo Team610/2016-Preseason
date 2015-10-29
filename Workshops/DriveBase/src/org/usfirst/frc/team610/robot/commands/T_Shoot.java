@@ -7,6 +7,7 @@ import org.usfirst.frc.team610.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -17,6 +18,7 @@ public class T_Shoot extends Command {
 	OI oi;
 	Joystick driver;
 	Joystick operator;
+	SmartDashboard dashboard;
 	private static double ff = 0.0022;
 	private static double setpoint = 0;
 	private static double current;
@@ -26,6 +28,8 @@ public class T_Shoot extends Command {
 	private static double delay = 10;
 	private int frisbees = 0;
 
+	
+	
 	public T_Shoot() {
 		oi = OI.getInstance();
 		shooter = Shooter.getInstance();
@@ -40,13 +44,44 @@ public class T_Shoot extends Command {
 	protected void initialize() {
 	
 	}
+	
+	boolean isPressed = false;
+	boolean shoot = false;
+	double wantedSpeed = 5500;
+	double currentSpeed = 0;
+	double error;
+	double lastError = 0;
+	double diffError;
+	double p = 0.0001;
+//	double d = 0.00001;
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		
+		currentSpeed = shooter.getSpeed();
 		
-		double speed = (5500 + 296) / 7868.4;
+		error = wantedSpeed - currentSpeed;
+		
+		
+		diffError = lastError - error;
+		lastError = error;
+		
+		
+		if(currentSpeed > wantedSpeed + 1000 || currentSpeed < -10){
+			currentSpeed = wantedSpeed;
+		}
+		
+		double power = (wantedSpeed + 296) / 7868.4 + (error * p)  ;
     	
+		if(power < -5 || power > 5){
+			power = 0;
+		}
+		
+		
+		
+		System.out.println(power);
+//		(wantedSpeed + 296) / 7868.4 + 
+//		 - (diffError * d)
 //    	if(driver.getRawButton(InputConstants.BTN_A)){
 //    		shooter.setMotors(.25);
 //    	} else if (driver.getRawButton(InputConstants.BTN_B)){
@@ -56,20 +91,36 @@ public class T_Shoot extends Command {
 //    	} else if (driver.getRawButton(InputConstants.BTN_Y)){
 //    		shooter.setMotors(1);
 //    	} 
-    	if(driver.getRawButton(InputConstants.BTN_A)){
-    		shooter.setMotors(speed);
+		
+		
+		
+		if(driver.getRawButton(InputConstants.BTN_A) && !isPressed){
+			isPressed = true;
+			shoot = !shoot;
+		} else if (!driver.getRawButton(InputConstants.BTN_A)) {
+			isPressed = false;
+		}
+		
+		
+    	if(shoot){
+    		shooter.setMotors(power);
     	} else {
     		shooter.setMotors(0);
     	}
     	
-    	System.out.println(shooter.getSpeed());
+//    	System.out.println(shooter.getSpeed());
+    	SmartDashboard.putNumber("Speed", shooter.getSpeed());
     	
     	
-//		if(driver.getRawButton(InputConstants.BTN_X)){
-//			shooter.feederOut();
-//		} else {
-//			shooter.feederIn();
-//		}
+		if(driver.getRawButton(InputConstants.BTN_X)){
+			if(!(shooter.getSpeed() < wantedSpeed)){
+				shooter.feederOut();
+			} else {
+				shooter.feederIn();
+			}
+		} else {
+			shooter.feederIn();
+		}
 		
 		
 		
