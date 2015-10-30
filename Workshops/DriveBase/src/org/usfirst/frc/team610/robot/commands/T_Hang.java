@@ -42,21 +42,21 @@ public class T_Hang extends Command {
     	
     	//CHECK INPUT CONSTANTS
     	//L2, BunnyEars
-    	if(driver.getRawButton(InputConstants.BTN_L2) && !bunnyEarsUp){
-    		bunnyEarsUp = true;
-    		hanger.setBunnyEarsUp();
-    	}
-    	else if(!driver.getRawButton(InputConstants.BTN_L2) && bunnyEarsUp){
+    	if(driver.getRawButton(InputConstants.BTN_L1) && bunnyEarsUp){
     		bunnyEarsUp = false;
     		hanger.setBunnyEarsDown();
     	}
+    	else if(!driver.getRawButton(InputConstants.BTN_L1) && !bunnyEarsUp){
+    		bunnyEarsUp = true;
+    		hanger.setBunnyEarsUp();
+    	}
     	
     	//L1, HangerBar
-    	if(driver.getRawButton(InputConstants.BTN_L1) && !hangerBarUp){
+    	if(driver.getRawButton(InputConstants.BTN_L2) && !hangerBarUp){
     		hangerBarUp = true;
     		hanger.setHangerBarUp();
     	}
-    	else if(!driver.getRawButton(InputConstants.BTN_L1) && hangerBarUp){
+    	else if(!driver.getRawButton(InputConstants.BTN_L2) && hangerBarUp){
     		hangerBarUp = false;
     		hanger.setHangerBarDown();
     	}

@@ -25,6 +25,7 @@ public class Shooter extends Subsystem {
 	double speed = 0.0;
 	Solenoid feeder;
 	DoubleSolenoid tray;
+	DoubleSolenoid angle;
 	
 	
 	
@@ -47,6 +48,7 @@ public class Shooter extends Subsystem {
 		  opticalCounter.setMaxPeriod(5);
 		  opticalCounter.setSemiPeriodMode(true);
 		  opticalCounter.reset();
+		  angle = new DoubleSolenoid(ElectricalConstants.SHOOTER_ANGLE_A, ElectricalConstants.SHOOTER_ANGLE_B);
 //		  optical = new DigitalInput(ElectricalConstants.OPTICAL);
 		  
 		  //light = new Relay(ElectricalConstants.LEDRelay);
@@ -84,6 +86,13 @@ public class Shooter extends Subsystem {
 		  //ShooterPIDCommand.setSetpoint(rpm);
 	  }
 	  
+	  public void setAngleUp(boolean up){
+		  if(up){
+			  angle.set(DoubleSolenoid.Value.kReverse);
+		  } else if(!up) {
+			  angle.set(DoubleSolenoid.Value.kForward);
+		  }
+	  }
 	  
 	  //WHICH ONE IS WHICH, CHECK PISTONS
 	  public void trayOpen(){
