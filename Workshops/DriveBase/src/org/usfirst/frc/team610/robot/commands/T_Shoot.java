@@ -25,13 +25,13 @@ public class T_Shoot extends Command {
 	private static double current;
 	private int extendCount = 0;
 	private int settleDownCount = 0;
-	private int retractDelay = 10;
+	private int retractDelay = 6;
 	private static double delay = 10;
 	private int frisbees = 0;
 
 	boolean isPressed = false;
 	boolean shoot = true;
-	double wantedSpeed = 4700;
+	double wantedSpeed = ShooterConstants.SPEED_FAR_PYRAMID;
 	double currentSpeed = 0;
 	double error;
 	double lastError = 0;
@@ -78,15 +78,15 @@ public class T_Shoot extends Command {
 			currentSpeed = wantedSpeed;
 		}
 
-		if (driver.getRawButton(InputConstants.BTN_Y) && !isPressedP) {
-			wantedSpeed += 100;
-			isPressedP = true;
-		} else if (driver.getRawButton(InputConstants.BTN_B) && !isPressedP) {
-			wantedSpeed -= 100;
-			isPressedP = true;
-		} else if (!driver.getRawButton(InputConstants.BTN_Y) && !driver.getRawButton(InputConstants.BTN_Y)) {
-			isPressedP = false;
-		}
+//		if (driver.getRawButton(InputConstants.BTN_Y) && !isPressedP) {
+//			wantedSpeed += 100;
+//			isPressedP = true;
+//		} else if (driver.getRawButton(InputConstants.BTN_B) && !isPressedP) {
+//			wantedSpeed -= 100;
+//			isPressedP = true;
+//		} else if (!driver.getRawButton(InputConstants.BTN_Y) && !driver.getRawButton(InputConstants.BTN_Y)) {
+//			isPressedP = false;
+//		}
 
 		power = (wantedSpeed + 296) / 7868.4 + (error * p);
 		// - (diffError * d)
@@ -95,7 +95,7 @@ public class T_Shoot extends Command {
 
 		diffPower = Math.abs(power - lastPower);
 
-		if (Math.abs(diffPower) > 10) {
+		if (Math.abs(diffPower) > 5) {
 			power = lastPower;
 		}
 
@@ -178,7 +178,7 @@ public class T_Shoot extends Command {
 
 		SmartDashboard.putNumber("P: ", p);
 		SmartDashboard.putNumber("Power: ", power);
-		System.out.println(shotIntervalCounter);
+		System.out.println(shooter.getSpeed());
 
 		// System.out.println(shooter.getOptical());
 		// if (optical != null) {
