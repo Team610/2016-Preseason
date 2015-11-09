@@ -102,6 +102,14 @@ public class Shooter extends Subsystem {
 	  public void trayClose(){
 		  tray.set(DoubleSolenoid.Value.kReverse);
 	  }
+	  
+	  public void setTrayOpen(boolean up){
+		  if(up){
+			  tray.set(DoubleSolenoid.Value.kForward);
+		  } else if(!up) {
+			  tray.set(DoubleSolenoid.Value.kReverse);
+		  }
+	  }
 
 	  public boolean getOptical(){
 		  return optical.get();

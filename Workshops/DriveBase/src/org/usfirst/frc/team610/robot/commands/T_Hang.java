@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class T_Hang extends Command {
 
 	Joystick driver;
+	Joystick operator;
 	Hanger hanger;
 	
 	boolean bunnyEarsUp = false;
@@ -24,6 +25,7 @@ public class T_Hang extends Command {
         // eg. requires(chassis);
     	
     	driver = OI.getInstance().getDriver();
+    	operator = OI.getInstance().getOperator();
     	hanger = Hanger.getInstance();
     	
     	
@@ -42,24 +44,31 @@ public class T_Hang extends Command {
     	
     	//CHECK INPUT CONSTANTS
     	//L2, BunnyEars
-    	if(driver.getRawButton(InputConstants.BTN_L1) && bunnyEarsUp){
+    	if((driver.getRawButton(InputConstants.BTN_L1) 
+    			| operator.getRawButton(InputConstants.BTN_L1))
+    			&& bunnyEarsUp){
     		bunnyEarsUp = false;
     		hanger.setBunnyEarsDown();
     	}
-    	else if(!driver.getRawButton(InputConstants.BTN_L1) && !bunnyEarsUp){
+    	else if(!(driver.getRawButton(InputConstants.BTN_L1) 
+    			| operator.getRawButton(InputConstants.BTN_L1)) && !bunnyEarsUp){
     		bunnyEarsUp = true;
     		hanger.setBunnyEarsUp();
     	}
     	
     	//L1, HangerBar
-    	if(driver.getRawButton(InputConstants.BTN_L2) && !hangerBarUp){
+    	if((driver.getRawButton(InputConstants.BTN_L2) 
+    			| operator.getRawButton(InputConstants.BTN_L2)) && !hangerBarUp){
     		hangerBarUp = true;
     		hanger.setHangerBarUp();
     	}
-    	else if(!driver.getRawButton(InputConstants.BTN_L2) && hangerBarUp){
+    	else if(!(driver.getRawButton(InputConstants.BTN_L2) 
+    			| operator.getRawButton(InputConstants.BTN_L2)) && hangerBarUp){
     		hangerBarUp = false;
     		hanger.setHangerBarDown();
     	}
+    	
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

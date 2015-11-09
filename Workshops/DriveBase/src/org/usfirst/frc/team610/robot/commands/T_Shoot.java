@@ -1,8 +1,11 @@
 package org.usfirst.frc.team610.robot.commands;
 
+import java.io.IOError;
+
 import org.usfirst.frc.team610.robot.OI;
 import org.usfirst.frc.team610.robot.constants.InputConstants;
 import org.usfirst.frc.team610.robot.constants.ShooterConstants;
+import org.usfirst.frc.team610.robot.subsystems.Hanger;
 import org.usfirst.frc.team610.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.Counter;
@@ -31,6 +34,10 @@ public class T_Shoot extends Command {
 
 	boolean isPressed = false;
 	boolean shoot = true;
+	boolean isPressedAngle = false;
+	boolean angle = false;
+	boolean isPressedFlap = false;
+	boolean flap = false;
 	double wantedSpeed = ShooterConstants.SPEED_FAR_PYRAMID;
 	double currentSpeed = 0;
 	double error;
@@ -50,6 +57,7 @@ public class T_Shoot extends Command {
 	public T_Shoot() {
 		oi = OI.getInstance();
 		shooter = Shooter.getInstance();
+		operator = oi.getOperator();
 		optical = new Counter();
 		driver = oi.getDriver();
 
@@ -78,15 +86,6 @@ public class T_Shoot extends Command {
 			currentSpeed = wantedSpeed;
 		}
 
-//		if (driver.getRawButton(InputConstants.BTN_Y) && !isPressedP) {
-//			wantedSpeed += 100;
-//			isPressedP = true;
-//		} else if (driver.getRawButton(InputConstants.BTN_B) && !isPressedP) {
-//			wantedSpeed -= 100;
-//			isPressedP = true;
-//		} else if (!driver.getRawButton(InputConstants.BTN_Y) && !driver.getRawButton(InputConstants.BTN_Y)) {
-//			isPressedP = false;
-//		}
 
 		power = (wantedSpeed + 296) / 7868.4 + (error * p);
 		// - (diffError * d)
@@ -101,22 +100,7 @@ public class T_Shoot extends Command {
 
 		lastPower = power;
 
-		// if(power < -5 || power > 5){
-		// power = 0;
-		// }
-		//
 
-		// System.out.println(power);
-
-		// if(driver.getRawButton(InputConstants.BTN_A)){
-		// shooter.setMotors(.25);
-		// } else if (driver.getRawButton(InputConstants.BTN_B)){
-		// shooter.setMotors(0.5);
-		// } else if (driver.getRawButton(InputConstants.BTN_X)){
-		// shooter.setMotors(0.75);
-		// } else if (driver.getRawButton(InputConstants.BTN_Y)){
-		// shooter.setMotors(1);
-		// }
 
 		// Toggle for spinning shooter
 		if (driver.getRawButton(InputConstants.BTN_A) && !isPressed) {
@@ -145,40 +129,46 @@ public class T_Shoot extends Command {
 			// }
 		}
 
-		// if(driver.getRawButton(InputConstants.BTN_X)){
-		// shooter.feederOut();
-		// shotIntervalCounter = 0;
-		// } else if (shotIntervalCounter >= retractDelay){
-		// shooter.feederIn();
-		// }
-		//
-		// if(shotIntervalCounter <= retractDelay){
-		// shotIntervalCounter ++;
-		// } else if (shotIntervalCounter >= retractDelay){
-		// shotIntervalCounter = 0;
-		// }
+
 		if (shotIntervalCounter >= retractDelay) {
-			if (driver.getRawButton(InputConstants.BTN_X) && Math.abs(shooter.getSpeed() - wantedSpeed) < 100) {
+			if ((driver.getRawButton(InputConstants.BTN_X) | 
+					operator.getRawButton(InputConstants.BTN_B) )
+					&& Math.abs(shooter.getSpeed() - wantedSpeed) < 100) {
 				shooter.feederOut();
 				shotIntervalCounter = 0;
 			} else {
 				shooter.feederIn();
 			}
 		}
-			if (shotIntervalCounter <= retractDelay) {
-				shotIntervalCounter++;
-			}
-		
-
-		if (driver.getRawButton(InputConstants.BTN_R1)) {
-			shooter.setAngleUp(true);
-		} else if (driver.getRawButton(InputConstants.BTN_R2)) {
-			shooter.setAngleUp(false);
+		if (shotIntervalCounter <= retractDelay) {
+			shotIntervalCounter++;
 		}
+		
+			
+		//OPERATOR CONTROLLS
+		if((operator.getRawButton(InputConstants.BTN_R1) 
+				| driver.getRawButton(InputConstants.BTN_R1)) 
+				&& !isPressedAngle){
+			isPressedAngle = true;
+			angle = !angle;
+		} else if(!(operator.getRawButton(InputConstants.BTN_R1)
+				| driver.getRawButton(InputConstants.BTN_R1))){
+			isPressedAngle = false;
+		}
+		shooter.setAngleUp(angle);
+		
+		if(operator.getRawButton(InputConstants.BTN_R2) && !isPressedFlap){
+			flap = !flap;
+			isPressedFlap = true;
+		} else if(!operator.getRawButton(InputConstants.BTN_R2)){
+			isPressedFlap = false;
+		}
+		shooter.setTrayOpen(flap);
+		
 
 		SmartDashboard.putNumber("P: ", p);
 		SmartDashboard.putNumber("Power: ", power);
-		System.out.println(shooter.getSpeed());
+		System.out.println(operator.getRawButton(InputConstants.BTN_R1));
 
 		// System.out.println(shooter.getOptical());
 		// if (optical != null) {
