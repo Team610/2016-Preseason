@@ -34,12 +34,12 @@ public class T_Kaj extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	/*
-    	 * TODO: CHECK AXIS
-    	 * TODO: CUBE? 
-    	 */
+    	
+    	//Get x and y form controller
     	x = driver.getRawAxis(InputConstants.AXIS_RIGHT_X);
     	y = driver.getRawAxis(InputConstants.AXIS_LEFT_Y);
+    	
+    	//Calculation for Kaj drive
     	leftSpeed = y-x;
     	rightSpeed = y+x;
     	

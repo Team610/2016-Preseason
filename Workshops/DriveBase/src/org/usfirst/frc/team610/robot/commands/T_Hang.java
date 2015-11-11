@@ -42,8 +42,8 @@ public class T_Hang extends Command {
     protected void execute() {
 
     	
-    	//CHECK INPUT CONSTANTS
-    	//L2, BunnyEars
+    	//Bunny Ears
+    	//Hold to bring up
     	if((driver.getRawButton(InputConstants.BTN_L1) 
     			| operator.getRawButton(InputConstants.BTN_L1))
     			&& bunnyEarsUp){
@@ -56,7 +56,8 @@ public class T_Hang extends Command {
     		hanger.setBunnyEarsUp();
     	}
     	
-    	//L1, HangerBar
+    	//L2 for HangerBar
+    	//Hold to bring up
     	if((driver.getRawButton(InputConstants.BTN_L2) 
     			| operator.getRawButton(InputConstants.BTN_L2)) && !hangerBarUp){
     		hangerBarUp = true;

@@ -18,6 +18,7 @@ public class ElectricalConstants {
 	public static final int SHOOTER_ONE = 6; //Correct & Calibrated
 	public static final int SHOOTER_TWO = 7; //Correct & Calibrated
 	
+	//Everything Correct
 	public static final int HANGER_SOL_A = 2;
 	public static final int HANGER_SOL_B = 7;
 	public static final int BUNNYEARS = 1;

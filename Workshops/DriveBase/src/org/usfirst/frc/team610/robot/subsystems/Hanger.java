@@ -29,7 +29,7 @@ public class Hanger extends Subsystem {
     }
     
     static Hanger instance;
-    
+    //Get public static instance of object Hanger
     public static Hanger getInstance(){
     	if (instance == null){
     		instance = new Hanger();
@@ -37,16 +37,20 @@ public class Hanger extends Subsystem {
     	return instance;
     }
     
+    //Bunny ears up
     public void setBunnyEarsUp(){
     	bunnyEars.set(true);
     }
+    //Bunny ears down
     public void setBunnyEarsDown(){
     	bunnyEars.set(false);
     }
     
+    //Hanger up
     public void setHangerBarUp(){
     	hangerBar.set(DoubleSolenoid.Value.kReverse);
     }
+    //Hanger PULL
     public void setHangerBarDown(){
     	hangerBar.set(DoubleSolenoid.Value.kForward);
     }

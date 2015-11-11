@@ -24,29 +24,36 @@ public class T_Shoot extends Command {
 	Joystick operator;
 	SmartDashboard dashboard;
 
+	
+	//Toggle Button variables
+	private boolean isPressed = false;
+	private boolean shoot = true;
+	private boolean isPressedAngle = false;
+	private boolean angle = false;
+	private boolean isPressedFlap = false;
+	private boolean flap = false;
+	
+	//Shooter variables
+	//Wanted RPM for shooter
+	private double wantedSpeed = ShooterConstants.SPEED_FAR_PYRAMID;
+	
+	//Shooter PID variables
+	private double currentSpeed = 0;
+	private double error;
+	private double lastError = 0;
+	private double diffError;
+	private double p = ShooterConstants.P;
+	
+	//Shooter interval counters to allow piston to retract
 	private int retractDelay = ShooterConstants.RETRACT_DELAY;
+	private int shotIntervalCounter = 0;
+	
+	//Shooter variables to make shooter run at a regular speed
+	private double lastPower = 0;
+	private double power;
+	private double diffPower;
 
-	boolean isPressed = false;
-	boolean shoot = true;
-	boolean isPressedAngle = false;
-	boolean angle = false;
-	boolean isPressedFlap = false;
-	boolean flap = false;
-	double wantedSpeed = ShooterConstants.SPEED_FAR_PYRAMID;
-	double currentSpeed = 0;
-	double error;
-	double lastError = 0;
-	double diffError;
-	double p = ShooterConstants.P;
-	// double d = 0.00001;
-
-	double lastPower = 0;
-	double power;
-	double diffPower;
-
-	boolean allowShoot = false;
-	int shotIntervalCounter = 0;
-	boolean isPressedP = false;
+	
 
 	public T_Shoot() {
 		oi = OI.getInstance();
@@ -68,35 +75,35 @@ public class T_Shoot extends Command {
 	protected void execute() {
 
 		// Feed forward PID for the shooter
+		
+		//Error calculation for PID
 		currentSpeed = shooter.getSpeed();
-
 		error = wantedSpeed - currentSpeed;
-
 		diffError = lastError - error;
-
 		lastError = error;
-
+		
+		//If current speed is an abnormal amount, ignore the value
 		if (currentSpeed > wantedSpeed + 1000 || currentSpeed < -10) {
 			currentSpeed = wantedSpeed;
 		}
 
-
+		//Calculation to get power of the motor by entering wanted RPM
+		//y=(x+296)/7868.4
 		power = (wantedSpeed + 296) / 7868.4 + (error * p);
-		// - (diffError * d)
 
-		// Prevent randomly high values from affecting pid
-
+		// Prevent random errors in values from affecting PID
 		diffPower = Math.abs(power - lastPower);
-
+		//If difference between last and current power is too high, ignore the power
 		if (Math.abs(diffPower) > 5) {
 			power = lastPower;
 		}
-
 		lastPower = power;
 
 
 
-		// Toggle for spinning shooter
+		//TOGGLE FOR SHOOTER WHEEL
+		//Shooter always starts off spinning
+		//Press A if something is wrong
 		if (driver.getRawButton(InputConstants.BTN_A) && !isPressed) {
 			isPressed = true;
 			shoot = !shoot;
@@ -114,32 +121,47 @@ public class T_Shoot extends Command {
 		SmartDashboard.putNumber("Speed", shooter.getSpeed());
 
 		// Hold down x to shoot
-		if (shooter.getSpeed() < wantedSpeed - 50) {
-			allowShoot = true;
-		} else {
-			allowShoot = false;
-			// if(shotIntervalCounter <= retractDelay){
-			// shotIntervalCounter ++;
-			// }
-		}
+//		if (shooter.getSpeed() < wantedSpeed - 50) {
+//			allowShoot = true;
+//		} else {
+//			allowShoot = false;
+//			// if(shotIntervalCounter <= retractDelay){
+//			// shotIntervalCounter ++;
+//			// }
+//		}
 
-
+		//HOLD DOWN BUTTON TO SHOOT
+		//x (driver) b (operator)
+		
+		//If the piston is back
 		if (shotIntervalCounter >= retractDelay) {
+			
+			//If a operator/driver is holding down shoot
+			//and if the speed is at the wanted speed
 			if ((driver.getRawButton(InputConstants.BTN_X) | 
 					operator.getRawButton(InputConstants.BTN_B) )
 					&& Math.abs(shooter.getSpeed() - wantedSpeed) < 100) {
+				
+				//FIRE PISTON
 				shooter.feederOut();
 				shotIntervalCounter = 0;
+				
+			//Questionable line of code, don't think it's right
 			} else {
 				shooter.feederIn();
 			}
 		}
+		
+		//Counts the time that you can shoot again.
+		//Questionable line of code should go here.
 		if (shotIntervalCounter <= retractDelay) {
 			shotIntervalCounter++;
 		}
 		
 			
 		//OPERATOR CONTROLLS
+		
+		//R1 to toggle shooter angle
 		if((operator.getRawButton(InputConstants.BTN_R1) 
 				| driver.getRawButton(InputConstants.BTN_R1)) 
 				&& !isPressedAngle){
@@ -150,7 +172,10 @@ public class T_Shoot extends Command {
 			isPressedAngle = false;
 		}
 		shooter.setAngleUp(angle);
+		//Put angle up on dashboard
+		SmartDashboard.putBoolean("Angle Up: ", angle);
 		
+		//R2 to toggle flap at the back of the robot (operator only)
 		if(operator.getRawButton(InputConstants.BTN_R2) && !isPressedFlap){
 			flap = !flap;
 			isPressedFlap = true;
@@ -160,10 +185,9 @@ public class T_Shoot extends Command {
 		shooter.setTrayOpen(flap);
 		
 
-		SmartDashboard.putNumber("P: ", p);
-		SmartDashboard.putNumber("Power: ", power);
-		System.out.println(operator.getRawButton(InputConstants.BTN_R1));
-
+		
+		//OLD 2013 CODE\\
+		//WHAT'S shooter.isAuston
 		// System.out.println(shooter.getOptical());
 		// if (optical != null) {
 		// current = (60 / (optical.getPeriod() * (8.0 / 7.0)));
@@ -177,7 +201,7 @@ public class T_Shoot extends Command {
 		// shooter is recovering.
 		// if (extendCount == 1) {
 		// //Fire and log
-		// if(!shooter.isAuton()){
+		// if(!shooter.isAuston()){
 		// pneumatics.setFeeder(true);
 		// }
 		// Logger.getLogger().debug("Speed: " + current);
