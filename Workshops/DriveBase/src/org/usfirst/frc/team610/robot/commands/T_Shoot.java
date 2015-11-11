@@ -23,14 +23,8 @@ public class T_Shoot extends Command {
 	Joystick driver;
 	Joystick operator;
 	SmartDashboard dashboard;
-	private static double ff = 0.0022;
-	private static double setpoint = 0;
-	private static double current;
-	private int extendCount = 0;
-	private int settleDownCount = 0;
-	private int retractDelay = 6;
-	private static double delay = 10;
-	private int frisbees = 0;
+
+	private int retractDelay = ShooterConstants.RETRACT_DELAY;
 
 	boolean isPressed = false;
 	boolean shoot = true;
