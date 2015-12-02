@@ -49,27 +49,24 @@ public class Shooter extends Subsystem {
 		  opticalCounter.setSemiPeriodMode(true);
 		  opticalCounter.reset();
 		  angle = new DoubleSolenoid(ElectricalConstants.SHOOTER_ANGLE_A, ElectricalConstants.SHOOTER_ANGLE_B);
-
+//		  optical = new DigitalInput(ElectricalConstants.OPTICAL);
+		  
+		  //light = new Relay(ElectricalConstants.LEDRelay);
 	  }
 	  
-	  //Get RPM of shooter by using speed = distance/time
 	  public double getSpeed(){
-		  //7.5 is the circumference of the shooter
-		  //Period is the time it takes to spin
 		  return (7.5/opticalCounter.getPeriod());
 	  }
 	  
-	  //Get raw optical counter value
 	  public double getCounter(){
 		  return (opticalCounter.get());
 	  }
 	  
-	  //Get raw optical counter peroid
 	  public double getPeriod(){
 		  return opticalCounter.getPeriod();
 	  }
 	  
-	  //Set power to both of the motors
+	  //Not sure if necessary
 	  public void setMotors(double speed){
 		  shooter1.set(speed);
 		  shooter2.set(speed);
@@ -80,8 +77,6 @@ public class Shooter extends Subsystem {
 	  public void feederOut(){
 		  feeder.set(true);
 	  }
-	  
-	  //Pull feeder piston in
 	  public void feederIn(){
 		  feeder.set(false);
 	  }
@@ -91,7 +86,6 @@ public class Shooter extends Subsystem {
 		  //ShooterPIDCommand.setSetpoint(rpm);
 	  }
 	  
-	  //Set shooter angle up or down
 	  public void setAngleUp(boolean up){
 		  if(up){
 			  angle.set(DoubleSolenoid.Value.kReverse);
@@ -100,7 +94,15 @@ public class Shooter extends Subsystem {
 		  }
 	  }
 	  
-	  //Set tray open
+	  //WHICH ONE IS WHICH, CHECK PISTONS
+	  public void trayOpen(){
+		  tray.set(DoubleSolenoid.Value.kForward);
+	  }
+	  
+	  public void trayClose(){
+		  tray.set(DoubleSolenoid.Value.kReverse);
+	  }
+	  
 	  public void setTrayOpen(boolean up){
 		  if(up){
 			  tray.set(DoubleSolenoid.Value.kForward);

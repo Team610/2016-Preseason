@@ -31,7 +31,6 @@ public class DriveTrain extends Subsystem {
 	
 	}
 	
-	//Get public static instance of object DriveTrain
 	public static DriveTrain getInstance(){
 		if(instance == null){
 			instance = new DriveTrain();
@@ -39,14 +38,12 @@ public class DriveTrain extends Subsystem {
 		return instance;
 	}
 	
-	//Set left speed
 	public void setLeftSpeed(double speed){
 	leftFront.set(speed);
 		leftMid.set(speed);
 		leftBack.set(speed);
 	}
 	
-	//Set right speed
 	public void setRightSpeed(double speed){
 		rightFront.set(-speed);
 		rightMid.set(-speed);

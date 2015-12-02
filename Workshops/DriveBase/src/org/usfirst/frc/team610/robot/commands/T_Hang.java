@@ -5,8 +5,10 @@ import org.usfirst.frc.team610.robot.constants.InputConstants;
 import org.usfirst.frc.team610.robot.subsystems.Hanger;
 import org.usfirst.frc.team610.robot.subsystems.Shooter;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -19,6 +21,7 @@ public class T_Hang extends Command {
 	
 	boolean bunnyEarsUp = false;
 	boolean hangerBarUp = false;
+	boolean isPressedBunny = false;
 	
     public T_Hang() {
         // Use requires() here to declare subsystem dependencies
@@ -42,33 +45,44 @@ public class T_Hang extends Command {
     protected void execute() {
 
     	
-    	//Bunny Ears
-    	//Hold to bring up
-    	if((driver.getRawButton(InputConstants.BTN_L1) 
-    			| operator.getRawButton(InputConstants.BTN_L1))
-    			&& bunnyEarsUp){
-    		bunnyEarsUp = false;
-    		hanger.setBunnyEarsDown();
-    	}
-    	else if(!(driver.getRawButton(InputConstants.BTN_L1) 
-    			| operator.getRawButton(InputConstants.BTN_L1)) && !bunnyEarsUp){
-    		bunnyEarsUp = true;
-    		hanger.setBunnyEarsUp();
+    	
+    	
+    	//CHECK INPUT CONSTANTS
+    	//L1, BunnyEars
+//    	if((driver.getRawButton(InputConstants.BTN_L1) 
+//    			| operator.getRawButton(InputConstants.BTN_L1))
+//    			&& bunnyEarsUp){
+//    		bunnyEarsUp = false;
+//    		hanger.setBunnyEarsDown();
+//    	}
+//    	else if(!(driver.getRawButton(InputConstants.BTN_L1) 
+//    			| operator.getRawButton(InputConstants.BTN_L1)) && !bunnyEarsUp){
+//    		bunnyEarsUp = true;
+//    		hanger.setBunnyEarsUp();
+//    	}
+    	
+    	
+    	if(driver.getRawButton(InputConstants.BTN_L1) && !isPressedBunny){
+    		isPressedBunny = true;
+    		bunnyEarsUp = !bunnyEarsUp;
+    	} else if (!driver.getRawButton(InputConstants.BTN_L1)){
+    		isPressedBunny = false;
     	}
     	
-    	//L2 for HangerBar
-    	//Hold to bring up
-    	if((driver.getRawButton(InputConstants.BTN_L2) 
-    			| operator.getRawButton(InputConstants.BTN_L2)) && !hangerBarUp){
-    		hangerBarUp = true;
-    		hanger.setHangerBarUp();
+    	if(bunnyEarsUp){
+    		hanger.setBunnyEarsUp();
+    	} else if(!bunnyEarsUp){
+    		hanger.setBunnyEarsDown();
     	}
-    	else if(!(driver.getRawButton(InputConstants.BTN_L2) 
-    			| operator.getRawButton(InputConstants.BTN_L2)) && hangerBarUp){
-    		hangerBarUp = false;
+    	
+    	//L2, HangerBar  	
+    	if(driver.getRawButton(InputConstants.BTN_L2)){
+    		hanger.setHangerBarUp();
+    	} else if (driver.getRawButton(InputConstants.BTN_R2)){
     		hanger.setHangerBarDown();
     	}
     	
+    	SmartDashboard.putString("Time: ", "" + DriverStation.getInstance().getMatchTime());
     	
     }
 
